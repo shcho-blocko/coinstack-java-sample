@@ -39,6 +39,7 @@ public class TestAuth extends AbstractTest {
 		}
 	}
 	
+	
 	private static final String PRIVATE_KEY = "KytX3e2LF5ia8uiydXMhcZyDEM3D7PcDuHJ32uQvRSGJP4wjKTNa";
 	private static final String AUTHORITY_ADDRESS = "1FyYMVJ8L1f3Uri5iNUQix2FQ7P1KfeNo3";
 	
@@ -48,12 +49,6 @@ public class TestAuth extends AbstractTest {
 	
 	//@Test
 	public void testGenerateKey() throws MalformedInputException {
-		/*
-		private static final String PRIVATE_KEY = "Kx5zouqiNyyMYaorh4TodriRwC9pV4zBD1gKjA58sgfuRGadDbz3";
-		private static final String AUTHORITY_ADDRESS = "16pTMKr2qtB3GT8hCjZs2NmoAvNtudwaKS";
-		private static final String PRIVATE_KEY = "cQdHVoYR9S8dA8sSAXfnz28WdprW4cN2N9TGwim9yFx3jBjxwPrr";
-		private static final String AUTHORITY_ADDRESS = "mxo8XuGVDsCYjjw9dwe6vYSsYGH1bMSFRv";
-		 */
 		String privateKey = ECKey.createNewPrivateKey();
 		String authorityAddress = ECKey.deriveAddress(privateKey);
 		System.out.println("privateKey: "+privateKey);
