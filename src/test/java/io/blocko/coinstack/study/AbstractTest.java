@@ -15,7 +15,7 @@ public abstract class AbstractTest {
 		client = new CoinStackClient(new CredentialsProvider() {
 			@Override
 			public String getAccessKey() {
-				return "17155ccf15e603853c19a35559f3f5";
+				return "17155ccf15e603853c19a35559f3f5"; // coinstack api key: "coinstack-java-sample"
 			}
 			@Override
 			public String getSecretKey() {
