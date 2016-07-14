@@ -1,4 +1,4 @@
-package io.blocko.coinstack.study;
+package io.blocko.coinstack.sample;
 
 
 import static org.junit.Assert.*;
