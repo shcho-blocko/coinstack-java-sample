@@ -1,1 +1,1 @@
-# coinstack-java-sample
+# coinstack-sample-java
