@@ -55,6 +55,10 @@ public class TestAuth extends AbstractTest {
 		System.out.println("authorityAddress: "+authorityAddress);
 	}
 	
+	public static String generateRandomContextString() {
+		return ECKey.createNewPrivateKey();
+	}
+	
 	
 	@Test
 	public void testRegistration() throws MalformedInputException, IOException {
@@ -78,7 +82,7 @@ public class TestAuth extends AbstractTest {
 		
 		
 		// [server side] create challenge and send to client
-		String TEST_CHALLENGE_CONTEXT = "TEST_"+System.currentTimeMillis();
+		String TEST_CHALLENGE_CONTEXT = generateRandomContextString();
 		Challenge challenge = regManager.createChallenge(TEST_CHALLENGE_CONTEXT);
 		assertNotNull(challenge);
 		//System.out.println("challenge: "+challenge.marshal());
