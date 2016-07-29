@@ -9,7 +9,6 @@ import io.blocko.coinstack.Endpoint;
 import io.blocko.coinstack.model.Block;
 import io.blocko.coinstack.model.BlockchainStatus;
 import io.blocko.coinstack.model.CredentialsProvider;
-import io.blocko.coinstack.model.Output;
 import io.blocko.coinstack.model.Transaction;
 
 public class QuickStartGuide {
