@@ -17,15 +17,20 @@
   </build>
   <dependencies>
     <dependency>
-      <groupId>io.blocko</groupId>
-      <artifactId>coinstack</artifactId>
-      <version>3.0.22</version>
-    </dependency>
-    <dependency>
       <groupId>junit</groupId>
       <artifactId>junit</artifactId>
       <version>4.11</version>
       <scope>test</scope>
+    </dependency>
+    <dependency>
+      <groupId>io.blocko</groupId>
+      <artifactId>coinstack</artifactId>
+      <version>3.0.23</version>
+    </dependency>
+    <dependency>
+      <groupId>io.blocko</groupId>
+      <artifactId>coinstack-openkeychain</artifactId>
+      <version>3.0.23-SNAPSHOT</version>
     </dependency>
   </dependencies>
 </project>
