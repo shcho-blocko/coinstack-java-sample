@@ -46,23 +46,12 @@ public class TestAuth extends AbstractTest {
 	 * newly generated (mainNet)
 	 * ECKey.createNewPrivateKey();
 	 * ECKey.deriveAddress(privateKey);
-	private static final boolean isMainNet = true;
+	 */
+	//private static final boolean isMainNet = true;
 	private static final String SERVER_PRIVATE_KEY = "KytX3e2LF5ia8uiydXMhcZyDEM3D7PcDuHJ32uQvRSGJP4wjKTNa";
 	private static final String SERVER_AUTHORITY_ADDRESS = "1FyYMVJ8L1f3Uri5iNUQix2FQ7P1KfeNo3";
 	private static final String CLIENT_PRIVATE_KEY = "L1TgQVi3RMGMsBvaq3jmisAX6veyGs1hBg17Vb9Q2bbjoUxgjtw4";
 	private static final String CLIENT_AUTHORITY_ADDRESS = "1Q1RjMkpwaTdYAtskvCWTGrfQ5fZ3Yahas";
-	 */
-	
-	/*
-	 * newly generated (testNet)
-	 * ECKey.createNewPrivateKey(false);
-	 * ECKey.deriveAddress(privateKey, false);
-	 */
-	private static final boolean isMainNet = false;
-	private static final String SERVER_PRIVATE_KEY = "cU3nqCw5Hz96VF5n4oWaGpYBV8hUDF8L7fkgwBiSfvoWHhUKcNp3";
-	private static final String SERVER_AUTHORITY_ADDRESS = "mwNuLve3j4WwPzNnPZhXJxKz6BKZ86nTrn";
-	private static final String CLIENT_PRIVATE_KEY = "cTsWr9Bd6ZyEvfGVyEVSdoggbbhRdqcrguXcKZKYbfYBb2AZetRW";
-	private static final String CLIENT_AUTHORITY_ADDRESS = "mnq2vkCE6B9TNLEjkNGuGGTQoGeVJzBFjU";
 	
 	
 	private CoinStackClient coinstack = null;
@@ -88,10 +77,8 @@ public class TestAuth extends AbstractTest {
 	
 	@Test
 	public void testRegistration() throws Exception {
-		System.out.println("isMainNet: "+isMainNet);
 		System.out.println("serverAddress: "+SERVER_AUTHORITY_ADDRESS);
 		System.out.println("clientAddress: "+CLIENT_AUTHORITY_ADDRESS);
-		assertTrue(isMainNet == coinstack.isMainNet());
 		
 		// [server side] prepare keyManager and regManager
 		ChallengeResponseManager regManager = new RegistrationManager(coinstack, keyManager);
@@ -108,21 +95,21 @@ public class TestAuth extends AbstractTest {
 		
 		// [server side] create challenge and send to client
 		String CHALLENGE_CONTEXT = generateRandomContextString();
-		Challenge challenge = regManager.createChallenge(CHALLENGE_CONTEXT, isMainNet);
+		Challenge challenge = regManager.createChallenge(CHALLENGE_CONTEXT);
 		//System.out.println("challenge: "+challenge.marshal());
 		
 		
 		// [client side] check challenge and send response to server
 		assertNotNull(challenge);
-		assertTrue(clientLoginManager.checkChallenge(challenge, SERVER_AUTHORITY_ADDRESS, isMainNet));
+		assertTrue(clientLoginManager.checkChallenge(challenge, SERVER_AUTHORITY_ADDRESS));
 		System.out.println("get challenge context: "+challenge.getContext());
-		Response response = clientLoginManager.createResponse(challenge, isMainNet);
+		Response response = clientLoginManager.createResponse(challenge);
 		//System.out.println("response: "+response.marshal());
 		
 		
 		// [server side] check response
 		assertNotNull(response);
-		assertTrue(regManager.checkResponse(CHALLENGE_CONTEXT, response, isMainNet));
+		assertTrue(regManager.checkResponse(CHALLENGE_CONTEXT, response));
 		String buf = new String(io.blocko.apache.commons.codec.binary.Base64.decodeBase64(response.getChallenge()));
 		Challenge clientReceived = Challenge.unmarshal(buf);
 		System.out.println("check response context: "+clientReceived.getContext());

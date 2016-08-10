@@ -21,7 +21,7 @@ public abstract class AbstractTest {
 			public String getSecretKey() {
 				return "4ffe022576916bf0d9c4c13718d582";
 			}
-		}, Endpoint.TESTNET);
+		}, Endpoint.MAINNET);
 	}
 	
 	@After
