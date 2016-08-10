@@ -48,10 +48,10 @@ public class TestAuth extends AbstractTest {
 	 * ECKey.deriveAddress(privateKey);
 	 */
 	//private static final boolean isMainNet = true;
-	private static final String SERVER_PRIVATE_KEY = "KytX3e2LF5ia8uiydXMhcZyDEM3D7PcDuHJ32uQvRSGJP4wjKTNa";
-	private static final String SERVER_AUTHORITY_ADDRESS = "1FyYMVJ8L1f3Uri5iNUQix2FQ7P1KfeNo3";
-	private static final String CLIENT_PRIVATE_KEY = "L1TgQVi3RMGMsBvaq3jmisAX6veyGs1hBg17Vb9Q2bbjoUxgjtw4";
-	private static final String CLIENT_AUTHORITY_ADDRESS = "1Q1RjMkpwaTdYAtskvCWTGrfQ5fZ3Yahas";
+	private static final String SERVER_PRIVATE_KEY = ""; // TODO need server private key
+	private static final String SERVER_AUTHORITY_ADDRESS = "1LNerxk3A4KDtoXMtYXLfL3LRnhjvwkC55";
+	private static final String CLIENT_PRIVATE_KEY = ""; // TODO need client private key
+	private static final String CLIENT_AUTHORITY_ADDRESS = "16L6nyhA44VzYLuLw8w9WZo1p9XwGdBB2i";
 	
 	
 	private CoinStackClient coinstack = null;
