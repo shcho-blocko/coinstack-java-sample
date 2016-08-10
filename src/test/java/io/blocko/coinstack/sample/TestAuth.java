@@ -114,11 +114,14 @@ public class TestAuth extends AbstractTest {
 		Challenge clientReceived = Challenge.unmarshal(buf);
 		System.out.println("check response context: "+clientReceived.getContext());
 		
-		// [server side] record registration
-		testRegistration(response.getCertificate()); // use BTC
+		// [server side] record
+		//testRegistration(response.getCertificate()); // use BTC
 		
-		// [server side] check registration
+		// [server side] check
 		testSignin(response.getCertificate());
+		
+		// [server side] revoke
+		//testRevocation(response.getCertificate()); // use BTC
 	}
 	
 	public void testRegistration(String certificateAddress) throws IOException {
@@ -139,10 +142,10 @@ public class TestAuth extends AbstractTest {
 		AuthorizationManager authManager = new AuthorizationManager(coinstack, keyManager);
 		byte[] metadata = authManager.checkRegistration(certificateAddress);
 		if (metadata == null) {
-			System.out.println("check registration fail.");
+			System.out.println("check signin fail.");
 		}
 		else {
-			System.out.println("check registration success.");
+			System.out.println("check signin success.");
 			System.out.println("metadata: "+new String(metadata));
 		}
 	}
