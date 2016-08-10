@@ -146,4 +146,10 @@ public class TestAuth extends AbstractTest {
 			System.out.println("metadata: "+new String(metadata));
 		}
 	}
+	
+	public void testRevocation(String certificateAddress) throws IOException {
+		RegistrationManager regManager = new RegistrationManager(coinstack, keyManager);
+		String txId = regManager.revokeRegistration(certificateAddress);
+		System.out.println("test revocation txId: "+txId);
+	}
 }
