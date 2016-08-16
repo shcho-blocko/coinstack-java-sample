@@ -27,5 +27,10 @@
       <artifactId>coinstack</artifactId>
       <version>3.0.23</version>
     </dependency>
+    <dependency>
+      <groupId>io.blocko</groupId>
+      <artifactId>coinstack-openkeychain</artifactId>
+      <version>3.0.23</version>
+    </dependency>
   </dependencies>
 </project>
