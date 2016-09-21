@@ -45,9 +45,6 @@ public class TestAuth {
 		// [server]
 		coinstack = CoinStackManager.getInstance().getCoinStackClient();
 		keyManager = CoinStackManager.getInstance().getKeyManager();
-		if (!CoinStackManager.checkValidKeyPair(keyManager)) {
-			throw new RuntimeException("invalid server key");
-		}
 		
 		// [client]
 		clientCoinStack = CoinStackManager.getInstance().getCoinStackClient();
@@ -61,6 +58,13 @@ public class TestAuth {
 	public void testRegistration() throws Exception {
 		// [server] prepare regManager
 		String SERVER_AUTH_ADDRESS = keyManager.fetchAddress();
+		if (coinstack.getBalance(SERVER_AUTH_ADDRESS) <= 0) {
+			String errMsg = "not enough balance (BTC) for testing";
+			//System.out.println(errMsg); return;
+			throw new RuntimeException(errMsg);
+		}
+		
+		// [server] prepare regManager
 		ChallengeResponseManager regManager = new RegistrationManager(coinstack, keyManager);
 		
 		

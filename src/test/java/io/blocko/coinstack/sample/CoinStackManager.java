@@ -4,7 +4,6 @@ import io.blocko.coinstack.CoinStackClient;
 import io.blocko.coinstack.ECKey;
 import io.blocko.coinstack.Endpoint;
 import io.blocko.coinstack.exception.CoinStackException;
-import io.blocko.coinstack.exception.MalformedInputException;
 import io.blocko.coinstack.model.CredentialsProvider;
 import io.blocko.coinstack.openkeychain.InMemoryKeyManager;
 import io.blocko.coinstack.openkeychain.KeyManager;
@@ -22,15 +21,15 @@ public class CoinStackManager {
 		return _instance;
 	}
 	
-	private static final String SERVER_PRIVATE_KEY = ""; // TODO SECRET: need server private key
-	private static final String SERVER_AUTHORITY_ADDRESS = "1LNerxk3A4KDtoXMtYXLfL3LRnhjvwkC55";
+	private static final String SERVER_PRIVATE_KEY = "KxQA7uBs4ZtaA8nxN2vLcz2WkoxtHJgz7AMaU9JFBzX6vwBhJXSp"; // SECRET: private key for test
+	//private static final String SERVER_AUTHORITY_ADDRESS = "1DvSQTCeb4LM6ANK8hHoh1J16fp7FEHn5C";
 	
 	private CoinStackClient coinstack = null;
 	private KeyManager keyManager = null;
 	
 	private CoinStackManager() {
 		this.coinstack = initCoinStack();
-		this.keyManager = initKeyManager(SERVER_PRIVATE_KEY, SERVER_AUTHORITY_ADDRESS);
+		this.keyManager = initKeyManager(SERVER_PRIVATE_KEY);
 	}
 	
 	
@@ -66,24 +65,5 @@ public class CoinStackManager {
 		KeyManager keyManager = new InMemoryKeyManager();
 		keyManager.registerKey(authAddress, privateKey.toCharArray());
 		return keyManager;
-	}
-	public static boolean checkValidKeyPair(KeyManager keyManager) {
-		if (keyManager == null) {
-			return false;
-		}
-		char[] pkey = keyManager.fetchPrivateKey();
-		if (pkey == null || pkey.length == 0) {
-			return false;
-		}
-		String addr = keyManager.fetchAddress();
-		if (addr == null || addr.isEmpty()) {
-			return false;
-		}
-		try {
-			String derivedAddr = ECKey.deriveAddress(new String(pkey));
-			return (addr.equals(derivedAddr));
-		} catch (MalformedInputException e) {
-			throw new RuntimeException(e);
-		}
 	}
 }
