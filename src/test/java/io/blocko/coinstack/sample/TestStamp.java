@@ -8,45 +8,56 @@ import java.io.IOException;
 import org.junit.*;
 
 import io.blocko.bitcoinj.core.Sha256Hash;
+import io.blocko.bitcoinj.core.Utils;
 import io.blocko.coinstack.CoinStackClient;
 import io.blocko.coinstack.exception.CoinStackException;
 import io.blocko.coinstack.model.Output;
 import io.blocko.coinstack.model.Stamp;
 import io.blocko.coinstack.model.Transaction;
-import io.blocko.spongycastle.util.encoders.Hex;
 
-public class TestStamp extends AbstractTest {
+public class TestStamp {
 	
-	@Test
+	//@Test
 	public void testStamp() throws IOException, CoinStackException {
-		String stampId = null;
-		stampId = testStampDocument("HELLO_WORLD");
-		/*
-		stampId = "16e30a24aaa2ce6b943b237500bb3072d11ad5a7b3a3ce0a7032bb4bcf038427-0";
-		stampId = "85eec47d2b6fa6f4eb358cfdd3577ee2226ac9441c20c3d88918eb50da4713d3-0";
-		*/
+		System.out.println("## testGetStamp");
 		
-		testGetStamp(stampId);
+		String testDocumentHashHex = getDocumentHashHex();
+		String stampId = testStampDocument(testDocumentHashHex);
+		String stampHash = testGetStamp(stampId);
+		assertEquals(testDocumentHashHex, stampHash);
+		
+		//hexHash: ff786d948022a3fa699ae0da8a307f39da78aa81dfc5643e831a4f3d84c825d6
+		//stampId: 0c0310a449c805237f0ed636fe0f2328444fa8ff0148cc55c7377d19c187a93e-0
+		System.out.println("");
 	}
 	
-	public String testStampDocument(String msg) throws IOException, CoinStackException {
-		CoinStackClient client = getClient();
+	@Test
+	public void testGetStamp() throws Exception {
+		System.out.println("## testGetStamp");
+		String stampHash = testGetStamp("0c0310a449c805237f0ed636fe0f2328444fa8ff0148cc55c7377d19c187a93e-0");
+		assertEquals("ff786d948022a3fa699ae0da8a307f39da78aa81dfc5643e831a4f3d84c825d6", stampHash);
+		System.out.println("");
+	}
+	
+	public String getDocumentHashHex() {
+		byte[] data = "TEST_DOCUMENT_DATA".getBytes();
+		byte[] hash = Sha256Hash.create(data).getBytes();
+		String hexHash = Utils.HEX.encode(hash);
+		return hexHash;
+	}
+	
+	public String testStampDocument(String hexHash) throws IOException, CoinStackException {
+		CoinStackClient client = CoinStackManager.getInstance().getCoinStackClient();
 		
-		Sha256Hash hash = Sha256Hash.create(msg.getBytes());
-		String strHash = Hex.toHexString(hash.getBytes());
-		System.out.println("strHash: "+strHash);
-		
-		String stampId = client.stampDocument(strHash);
+		System.out.println("hexHash: "+hexHash);
+		String stampId = client.stampDocument(hexHash);
 		assertNotNull(stampId);
 		System.out.println("stampId: "+stampId);
 		return stampId;
-		
-		//strHash: 6f9b514093848217355d76365df1f54f42bdfd5f4e5f54a654c46b493d162c39
-		//stampId: 7e7335644971d7821d89bc64e57da4cece6ffde86c97942eb7bad145acbd258f-0
 	}
 	
-	public void testGetStamp(String stampId) throws IOException, CoinStackException {
-		CoinStackClient client = getClient();
+	public String testGetStamp(String stampId) throws IOException, CoinStackException {
+		CoinStackClient client = CoinStackManager.getInstance().getCoinStackClient();
 		
 		Stamp stamp = client.getStamp(stampId);
 		assertNotNull(stamp);
@@ -61,14 +72,11 @@ public class TestStamp extends AbstractTest {
 		assertNotNull(outs);
 		assertTrue(outs.length > stamp.getOutputIndex());
 		Output out = outs[stamp.getOutputIndex()];
-		String strData = new String(Hex.encode(out.getData()));
+		String strData = Utils.HEX.encode(out.getData());
 		String strHash = strData.substring(4);
 		System.out.println("strData: "+strData);
 		System.out.println("strHash:     "+strHash);
-		
-		//TxId: 7e7335644971d7821d89bc64e57da4cece6ffde86c97942eb7bad145acbd258f
-		//strData: 53316f9b514093848217355d76365df1f54f42bdfd5f4e5f54a654c46b493d162c39
-		//strHash:     6f9b514093848217355d76365df1f54f42bdfd5f4e5f54a654c46b493d162c39
+		return strHash;
 	}
 
 }
