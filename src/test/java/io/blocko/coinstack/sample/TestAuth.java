@@ -27,9 +27,9 @@ public class TestAuth {
 	public static String loadClientKeyForTest() {
 		//return "Kx2wqH1YpFJAk1i1zg3wFdqv8jupVpDhpcNY6dvGw5TdhQ91S7yb"; // addr=1H7NkP8MUATHc4izg9Foc2otdrwH4D1tjy (not registed)
 		//return "L3y6LDAmy2DGfKRS4okXEq1NbR3AacmN86Bd2YLBAZUvoJFpqqNK"; // addr=1ARdhAaCVEaLnfixQ9rNd6BX58om7PW9pB (revoked)
-		//return "KwdANrBRPcX1DwDHK2M3FwZzJeS6o2CncDJar5Fby23es2f6TRoG"; // addr=1DXnc2fX9S1N7HmJgawGcWsF8WXxbspZnB (registed)
+		return "KwdANrBRPcX1DwDHK2M3FwZzJeS6o2CncDJar5Fby23es2f6TRoG"; // addr=1DXnc2fX9S1N7HmJgawGcWsF8WXxbspZnB (registed)
 		//return ""; // addr=
-		return ECKey.createNewPrivateKey();
+		//return ECKey.createNewPrivateKey();
 	}
 	
 	
@@ -60,8 +60,8 @@ public class TestAuth {
 		String SERVER_AUTH_ADDRESS = keyManager.fetchAddress();
 		if (coinstack.getBalance(SERVER_AUTH_ADDRESS) <= 0) {
 			String errMsg = "not enough balance (BTC) for testing";
-			//System.out.println(errMsg); return;
-			throw new RuntimeException(errMsg);
+			System.out.println(errMsg); return;
+			//throw new RuntimeException(errMsg);
 		}
 		
 		// [server] prepare regManager
