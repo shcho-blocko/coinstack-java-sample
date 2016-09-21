@@ -118,9 +118,11 @@ public class TestAuth extends AbstractTest {
 		//testRegistration(response.getCertificate()); // use BTC
 		
 		// [server side] check
+		assertEquals(CLIENT_AUTHORITY_ADDRESS, response.getCertificate());
 		testSignin(response.getCertificate());
 		
 		// [server side] revoke
+		//assertEquals(CLIENT_AUTHORITY_ADDRESS, response.getCertificate());
 		//testRevocation(response.getCertificate()); // use BTC
 	}
 	
