@@ -1,6 +1,6 @@
 # coinstack-sample-java
 
-CoinStack의 기본적인 사용 방법을 알 수 있는 샘플 코드를 제공합니다.
+CoinStack의 샘플 코드를 제공합니다.
 
 ## caution
 일부 테스트의 경우에는 비트코인 잔고가 필요하며
