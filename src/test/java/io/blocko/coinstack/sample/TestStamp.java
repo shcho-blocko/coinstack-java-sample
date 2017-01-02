@@ -10,12 +10,26 @@ import org.junit.*;
 import io.blocko.bitcoinj.core.Sha256Hash;
 import io.blocko.bitcoinj.core.Utils;
 import io.blocko.coinstack.CoinStackClient;
+import io.blocko.coinstack.InstanceManager;
 import io.blocko.coinstack.exception.CoinStackException;
 import io.blocko.coinstack.model.Output;
 import io.blocko.coinstack.model.Stamp;
 import io.blocko.coinstack.model.Transaction;
 
 public class TestStamp {
+	
+	CoinStackClient coinstack = null;
+	
+	@Before
+	public void before() {
+		coinstack = InstanceManager.createNewCoinStackClient();
+	}
+	
+	@After
+	public void after() {
+		coinstack.close();
+	}
+	
 	
 	//@Test
 	public void testStamp() throws IOException, CoinStackException {
@@ -47,26 +61,22 @@ public class TestStamp {
 	}
 	
 	public String testStampDocument(String hexHash) throws IOException, CoinStackException {
-		CoinStackClient client = CoinStackManager.getInstance().getCoinStackClient();
-		
 		System.out.println("hexHash: "+hexHash);
-		String stampId = client.stampDocument(hexHash);
+		String stampId = coinstack.stampDocument(hexHash);
 		assertNotNull(stampId);
 		System.out.println("stampId: "+stampId);
 		return stampId;
 	}
 	
 	public String testGetStamp(String stampId) throws IOException, CoinStackException {
-		CoinStackClient client = CoinStackManager.getInstance().getCoinStackClient();
-		
-		Stamp stamp = client.getStamp(stampId);
+		Stamp stamp = coinstack.getStamp(stampId);
 		assertNotNull(stamp);
 		System.out.println("TxId: "+stamp.getTxId());
 		System.out.println("OutputIndex: "+stamp.getOutputIndex());
 		System.out.println("Confirmations: "+stamp.getConfirmations());
 		System.out.println("Timestamp: "+stamp.getTimestamp());
 		
-		Transaction tx = client.getTransaction(stamp.getTxId());
+		Transaction tx = coinstack.getTransaction(stamp.getTxId());
 		assertNotNull(tx);
 		Output[] outs = tx.getOutputs();
 		assertNotNull(outs);

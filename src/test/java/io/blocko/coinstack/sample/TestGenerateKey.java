@@ -1,5 +1,7 @@
 package io.blocko.coinstack.sample;
 
+import static org.junit.Assert.*;
+
 import org.junit.Test;
 
 import io.blocko.coinstack.ECKey;
@@ -9,25 +11,21 @@ public class TestGenerateKey {
 	
 	@Test
 	public void testGenerateKey() throws CoinStackException {
+		System.out.println("## testGenerateKey");
 		String privateKey = ECKey.createNewPrivateKey();
 		String authorityAddress = ECKey.deriveAddress(privateKey);
 		System.out.println("create privateKey: "+privateKey);
 		System.out.println("derive authorityAddress: "+authorityAddress);
+		System.out.println("");
 	}
 	
-	//@Test
+	@Test
 	public void testDeriveKey() throws CoinStackException {
-		String privateKey = ""; // SECRET
+		System.out.println("## testGenerateKey");
+		String privateKey = "L4JfD5753EWSj8pUCNyxGAZ2WBoRA94d1s2JfZ2ma6vAuUXmbfdR";
 		String authorityAddress = ECKey.deriveAddress(privateKey);
 		System.out.println("derive authorityAddress: "+authorityAddress);
-	}
-	
-	//@Test
-	public void testGenerateKeyForTestNet() throws CoinStackException {
-		boolean isMainNet = false;
-		String privateKey = ECKey.createNewPrivateKey(isMainNet);
-		String authorityAddress = ECKey.deriveAddress(privateKey, isMainNet);
-		System.out.println("[TestNet] create privateKey: "+privateKey);
-		System.out.println("[TestNet] derive authorityAddress: "+authorityAddress);
+		assertEquals("1BBA9M2mtbf974RJyDWM7FTzB8e7y84kTq", authorityAddress);
+		System.out.println("");
 	}
 }

@@ -2,9 +2,13 @@ package io.blocko.coinstack.sample;
 
 import static org.junit.Assert.*;
 
+import java.io.IOException;
+
 import org.junit.*;
 
 import io.blocko.coinstack.CoinStackClient;
+import io.blocko.coinstack.exception.CoinStackException;
+import io.blocko.coinstack.InstanceManager;
 import io.blocko.coinstack.model.Block;
 import io.blocko.coinstack.model.BlockchainStatus;
 import io.blocko.coinstack.model.Transaction;
@@ -15,7 +19,7 @@ public class QuickStartGuide {
 	
 	@Before
 	public void before() {
-		coinstack = CoinStackManager.getInstance().getCoinStackClient();
+		coinstack = InstanceManager.createNewCoinStackClient();
 	}
 	
 	@After
@@ -25,44 +29,48 @@ public class QuickStartGuide {
 	
 	
 	@Test
-	public void testMain() throws Exception {
-		assertTrue(true);
-		testQuickStartBestBlock();
-		testQuickStartAddress();
+	public void quickStartGuide() throws Exception {
+		testBestBlock();
+		testTransactions();
+		testAddress();
 	}
 	
-	public void testQuickStartBestBlock() throws Exception {
-		System.out.println("## testQuickStartBestBlock\n");
+	public void testBestBlock() throws IOException, CoinStackException {
+		System.out.println("## BestBlock");
 		
 		// Blockchain 상태 조회, Best Height / Best Block Hash 출력
 		BlockchainStatus status = coinstack.getBlockchainStatus();
-		System.out.println("**** BlockChainStatus");
-		System.out.println("bestHeight: "+status.getBestHeight());
-		System.out.println("bestBlockHash: "+status.getBestBlockHash());
+		assertNotNull(status);
+		System.out.println("- BlockChainStatus");
+		System.out.println("  bestBlockHash: "+status.getBestBlockHash());
+		System.out.println("  bestHeight: "+status.getBestHeight());
 		System.out.println("");
+	}
+	
+	public void testTransactions() throws IOException, CoinStackException {
+		System.out.println("## Transactions");
 		
-		// Block 조회
-		System.out.println("**** Block");
+		// BestBlock 조회
+		System.out.println("- Block");
+		BlockchainStatus status = coinstack.getBlockchainStatus();
 		String blockId = status.getBestBlockHash();
-		System.out.println("blockId: "+blockId);
+		System.out.println("  blockId: "+blockId);
 		Block block = coinstack.getBlock(blockId);
 		assertNotNull(block);
-		System.out.println("blockId: "+block.getBlockId());
-		System.out.println("parentId: "+block.getParentId());
-		System.out.println("height: "+block.getHeight());
-		System.out.println("");
+		System.out.println("  height: "+block.getHeight());
+		System.out.println("  parentId: "+block.getParentId());
 		
 		// Transaction 조회
-		System.out.println("**** Transaction");
+		System.out.println("  - Transaction");
 		String[] txIds = block.getTransactionIds();
 		assertNotNull(txIds);
-		for (int x=0, len=txIds.length; x<len; x++) {
+		for (int x=1, len=txIds.length; x<len; x++) {
 			String txId = txIds[x];
-			System.out.println("- txId: "+txId);
+			System.out.println("    - txId: "+txId);
 			Transaction tx = coinstack.getTransaction(txId);
 			assertNotNull(tx);
-			System.out.println("  ins.cnt: "+tx.getInputs().length);
-			System.out.println("  outs.cnt: "+tx.getOutputs().length);
+			System.out.println("      inputs.cnt: "+tx.getInputs().length);
+			System.out.println("      outs.cnt: "+tx.getOutputs().length);
 			if (x > 3) {
 				break;
 			}
@@ -70,22 +78,22 @@ public class QuickStartGuide {
 		System.out.println("");
 	}
 	
-	public void testQuickStartAddress() throws Exception {
-		System.out.println("## testQuickStartAddress\n");
+	
+	public void testAddress() throws IOException, CoinStackException {
+		System.out.println("## Address");
 		
 		// Address 조회, Balance 출력
-		String YOUR_BLOCKCHAIN_ADDRESS = null;
-		YOUR_BLOCKCHAIN_ADDRESS = "13YcaCxxFoBmkciWT9ScyHF2Uij6X14Lxo";
+		String YOUR_BLOCKCHAIN_ADDRESS = "13YcaCxxFoBmkciWT9ScyHF2Uij6X14Lxo";
 		
-		System.out.println("**** Balance");
+		System.out.println("- Address: "+YOUR_BLOCKCHAIN_ADDRESS);
+		
 		long balance = coinstack.getBalance(YOUR_BLOCKCHAIN_ADDRESS);
-		System.out.println("balance: "+balance);
-		System.out.println("");
+		System.out.println("- Balance: "+balance);
 		
-		System.out.println("**** Transactions");
+		System.out.println("- Transactions");
 		String[] txIds = coinstack.getTransactions(YOUR_BLOCKCHAIN_ADDRESS);
 		for (String txId : txIds) {
-			System.out.println("txIds[]: "+txId);
+			System.out.println("  txIds[]: "+txId);
 		}
 		System.out.println("");
 	}
