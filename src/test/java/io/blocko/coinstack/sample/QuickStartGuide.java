@@ -8,7 +8,7 @@ import org.junit.*;
 
 import io.blocko.coinstack.CoinStackClient;
 import io.blocko.coinstack.exception.CoinStackException;
-import io.blocko.coinstack.InstanceManager;
+import io.blocko.coinstack.InstanceFactory;
 import io.blocko.coinstack.model.Block;
 import io.blocko.coinstack.model.BlockchainStatus;
 import io.blocko.coinstack.model.Transaction;
@@ -19,7 +19,7 @@ public class QuickStartGuide {
 	
 	@Before
 	public void before() {
-		coinstack = InstanceManager.createNewCoinStackClient();
+		coinstack = InstanceFactory.createNewCoinStackClient();
 	}
 	
 	@After

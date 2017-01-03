@@ -4,7 +4,7 @@ import io.blocko.coinstack.CoinStackClient;
 import io.blocko.coinstack.Endpoint;
 import io.blocko.coinstack.model.CredentialsProvider;
 
-public class InstanceManager {
+public class InstanceFactory {
 	
 	public static CoinStackClient createNewCoinStackClient() {
 		CoinStackClient coinstack = new CoinStackClient(new CredentialsProvider() {

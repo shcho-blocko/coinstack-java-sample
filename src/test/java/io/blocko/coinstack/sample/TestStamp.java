@@ -10,7 +10,7 @@ import org.junit.*;
 import io.blocko.bitcoinj.core.Sha256Hash;
 import io.blocko.bitcoinj.core.Utils;
 import io.blocko.coinstack.CoinStackClient;
-import io.blocko.coinstack.InstanceManager;
+import io.blocko.coinstack.InstanceFactory;
 import io.blocko.coinstack.exception.CoinStackException;
 import io.blocko.coinstack.model.Output;
 import io.blocko.coinstack.model.Stamp;
@@ -22,7 +22,7 @@ public class TestStamp {
 	
 	@Before
 	public void before() {
-		coinstack = InstanceManager.createNewCoinStackClient();
+		coinstack = InstanceFactory.createNewCoinStackClient();
 	}
 	
 	@After
