@@ -1,8 +1,8 @@
 import java.io.IOException;
 
-import io.blocko.coinstack.CoinStackClient;
-import io.blocko.coinstack.exception.CoinStackException;
-import io.blocko.coinstack.model.Output;
+import io.blocko.coinstack.*;
+import io.blocko.coinstack.exception.*;
+import io.blocko.coinstack.model.*;
 
 public class SampleAddress {
 
@@ -13,38 +13,41 @@ public class SampleAddress {
 		String address = SampleMain.SAMPLE_ADDRESS;
 		
 		
-		System.out.println("### sampleBalance: "+address);
-		sampleBalance(client, address);
+		System.out.println("### get balance: "+address);
+		sampleGetBalance(client, address);
 		
-		System.out.println("### sampleUtxo: "+address);
-		sampleUtxo(client, address);
+		System.out.println("### get utxo: "+address);
+		sampleGetUtxo(client, address);
 		
-		System.out.println("### sampleHistory: "+address);
-		sampleHistory(client, address);
+		System.out.println("### get history: "+address);
+		sampleGetHistory(client, address);
 	}
 	
 	
-	public static void sampleBalance(CoinStackClient client, String address) throws IOException, CoinStackException {
+	public static void sampleGetBalance(CoinStackClient client, String address) throws IOException, CoinStackException {
 		// 잔고 조회
 		long balance = client.getBalance(address); // 1 BTC == 100,000,000 satoshi
 		System.out.println("- balance: "+balance+" (satoshi)");
 	}
 	
-	public static void sampleUtxo(CoinStackClient client, String address) throws IOException, CoinStackException {
+	public static void sampleGetUtxo(CoinStackClient client, String address) throws IOException, CoinStackException {
 		// UTXO 조회
 		Output[] utxos = client.getUnspentOutputs(address);
 		System.out.println("- utxo: cnt="+utxos.length);
 		
+		long sumOfUtxoValues = 0;
 		for (Output utxo : utxos) {
 			String txIdReverseOrdered = utxo.getTransactionId(); // Caution: reverse byte order
-			int vout = utxo.getIndex();
+			int index = utxo.getIndex();
 			long value = utxo.getValue();
-			System.out.printf("  utxo[] txIdReverseOrdered=%s, index=%d, value=%d\n",
-					txIdReverseOrdered, vout, value);
+			sumOfUtxoValues += value;
+			System.out.printf("  utxo[] txId.r=%s, index=%d, value=%d\n",
+					txIdReverseOrdered, index, value);
 		}
+		System.out.println("  sumOfUtxoValues: "+sumOfUtxoValues);
 	}
 	
-	public static void sampleHistory(CoinStackClient client, String address) throws IOException, CoinStackException {
+	public static void sampleGetHistory(CoinStackClient client, String address) throws IOException, CoinStackException {
 		// 거래내역 조회
 		String[] txIds = client.getTransactions(address);
 		System.out.println("- txIds: cnt="+txIds.length);
@@ -54,7 +57,7 @@ public class SampleAddress {
 				System.out.println("  ...");
 				break;
 			}
-			SampleBlockchain.sampleTx(client, txIds[i]);
+			SampleTx.sampleGetTx(client, txIds[i]);
 		}
 	}
 

@@ -1,7 +1,7 @@
 import java.io.IOException;
 
-import io.blocko.coinstack.ECKey;
-import io.blocko.coinstack.exception.CoinStackException;
+import io.blocko.coinstack.*;
+import io.blocko.coinstack.exception.*;
 
 public class SampleKey {
 	
@@ -9,7 +9,7 @@ public class SampleKey {
 		System.out.println("## SampleKey");
 		
 		
-		System.out.println("### sampleCreateKey");
+		System.out.println("### create key");
 		sampleCreateKey();
 	}
 	

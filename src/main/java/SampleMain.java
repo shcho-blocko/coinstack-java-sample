@@ -1,10 +1,9 @@
 import java.io.IOException;
 import java.security.PublicKey;
 
-import io.blocko.coinstack.AbstractEndpoint;
-import io.blocko.coinstack.CoinStackClient;
-import io.blocko.coinstack.exception.CoinStackException;
-import io.blocko.coinstack.model.CredentialsProvider;
+import io.blocko.coinstack.*;
+import io.blocko.coinstack.exception.*;
+import io.blocko.coinstack.model.*;
 
 public class SampleMain {
 	
@@ -19,6 +18,9 @@ public class SampleMain {
 	
 	public static String SAMPLE_RECEIVER_ADDR1 = "1A65VHc4ZGErUB6PbnHaFHV83smFhMwv7W";
 	public static String SAMPLE_RECEIVER_ADDR2 = "1ABZFRrv6FiriYfsYhtz3Usuh4okr1zni2";
+	
+	public static byte[] SAMPLE_TX_DATA = "SAMPLE_TEXT".getBytes();
+	//public static byte[] SAMPLE_TX_DATA = "SAMPLE_TEXT".getBytes();
 	
 	
 	
@@ -57,24 +59,36 @@ public class SampleMain {
 	public static void main(String[] args) throws IOException, CoinStackException {
 		System.out.println("# SampleMain");
 		
+		CoinStackClient client = createNewClient();
+		BlockchainStatus status = client.getBlockchainStatus();
+		System.out.println("- bestBlockHash: "+status.getBestBlockHash());
+		System.out.println("  bestHeight: "+status.getBestHeight());
+		
+		//sampleAll();
+	}
+	
+	public static void sampleAll() throws IOException, CoinStackException {
+		System.out.println("## SampleAll");
+		System.out.println("- blockchain, key, address, tx, tx build");
+		
+		// - blockchain status
+		// - get block
+		SampleBlockchain.main(null);
 		
 		// - create private key
 		// - derive address
-		SampleKey.main(args);
-		
-		// - get blockchain status
-		// - get block
-		// - get transaction
-		SampleBlockchain.main(args);
+		SampleKey.main(null);
 		
 		// - get balance
 		// - get utxo
 		// - get transaction history
-		SampleAddress.main(args);
+		SampleAddress.main(null);
+		
+		// - get transaction
+		SampleTx.main(null);
 		
 		// - build transaction
-		SampleTxBuild.main(args);
-		
+		SampleTxBuild.main(null);
 	}
 	
 }
