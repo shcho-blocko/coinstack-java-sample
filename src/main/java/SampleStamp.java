@@ -49,12 +49,12 @@ public class SampleStamp {
 	}
 	
 	public static void sampleNewDocumentHash(byte[] documentBytes) {
-		byte[] hash = Codecs.SHA256.digest(documentBytes);
-		String hexHash = Codecs.HEX.encode(hash); // hex string formatted
-		//String hexFormatted = Codecs.SHA256.digestEncodeHex(documentBytes);
+		byte[] hashBytes = Codecs.SHA256.digest(documentBytes);
+		String documentHash = Codecs.HEX.encode(hashBytes); // hex encoded
+		//String documentHash = Codecs.SHA256.digestEncodeHex(documentBytes);
 		
 		System.out.println("- document bytes: "+Codecs.HEX.encode(documentBytes));
-		System.out.println("  document hash: "+hexHash);
+		System.out.println("  document hash: "+documentHash);
 		
 	}
 }
