@@ -22,6 +22,11 @@ public class SampleMain {
 	public static byte[] SAMPLE_TX_DATA = "SAMPLE_TEXT".getBytes();
 	//public static byte[] SAMPLE_TX_DATA = "SAMPLE_TEXT".getBytes();
 	
+	public static String SAMPLE_STAMP_PRIVKEY = "KyvFMNtJgRDo5Rp6RkcSfw9ghH88DdYRCwD4X5iCwiJHkridX2XU";
+	//public static String SAMPLE_STAMP_ADDRESS = "17KLrfXXauAQYb6VcjkY5WpS11cxT8wkmb";
+	public static String SAMPLE_STAMP_DOCUMENT_HASH = "b1674191a88ec5cdd733e4240a81803105dc412d6c6708d53ab94fc248f4f553";
+	public static String SAMPLE_STAMP_ID = "f2086e1f2d1eef047140b1bcb4893bc45bed9194ba24b7d403e9486c0f26e6d3-0";
+	
 	
 	
 	public static CoinStackClient createNewClient() {
@@ -89,6 +94,9 @@ public class SampleMain {
 		
 		// - build transaction
 		SampleTxBuild.main(null);
+		
+		// - stamp
+		SampleStamp.main(null);
 	}
 	
 }
