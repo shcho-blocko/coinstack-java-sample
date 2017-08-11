@@ -23,7 +23,11 @@ public class SampleStamp {
 		sampleGetStamp(client, stampId);
 		
 		System.out.println("### new document hash");
-		byte[] documentBytes = new byte[] { 0x12, 0x34, 0x56, 0x78, 0x03 };
+		byte[] documentBytes = new byte[] {
+				(byte)0x12, (byte)0x34, (byte)0x56, (byte)0x78,
+				(byte)0x90, (byte)0xab, (byte)0xcd, (byte)0xef,
+				(byte)0x01, (byte)0x02,
+		};
 		sampleNewDocumentHash(documentBytes);
 	}
 	

@@ -7,10 +7,10 @@ import io.blocko.coinstack.model.*;
 
 public class SampleMain {
 	
-	public static String SAMPLE_BLOCK_ID = "00001294b6960ac809f5da28edacd301ae2aee272249d60fa248549eb08905d2";
+	public static String SAMPLE_BLOCK_ID = "00001b9ff6cd68169cacec7adc9de065fd0d8ee9c8a2ded2d511492caf04f4d2";
 	public static String[] SAMPLE_TX_IDS = new String[] {
-			"306b7f360f3acca49c9b9b5f10b17069db638c1678a103079014a87cc0354f4c",
-			"5c2fcd62c20713143b15a2d12400794719a36ace52d8e4ec0666d206bc79e330",
+			"b1aaea775b442f41c16e088041400ee540e97e37c4f7f4458af44c8ceb12999e",
+			"d146389546a3a13aa88d1271e655c48e6995c144c59710de41303f83c5685271",
 	};
 	
 	public static String SAMPLE_PRIVKEY = "L5Ln2xNzDQ9S7d1Ly6v8Dx1zQQxPqGEtFpoVJJjDxC5qW5xmhLRd";
@@ -69,7 +69,7 @@ public class SampleMain {
 		System.out.println("- bestBlockHash: "+status.getBestBlockHash());
 		System.out.println("  bestHeight: "+status.getBestHeight());
 		
-		//sampleAll();
+		sampleAll();
 	}
 	
 	public static void sampleAll() throws IOException, CoinStackException {

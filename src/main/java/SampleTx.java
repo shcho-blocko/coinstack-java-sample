@@ -19,9 +19,6 @@ public class SampleTx {
 		for (String txId : txIds) {
 			sampleGetTx(client, txId);
 		}
-		
-		sampleGetTx(client, "845521bcca6575b1bd6300ed9b14c2c30bd18d3142b67717c7e450e69c5fa2a8");
-		
 	}
 	
 	
